@@ -12,8 +12,8 @@ This feature demo shows you how to set up a sample skill called Ping Me, and a s
 - [Amazon Web Services Account](http://aws.amazon.com/)
 - [AWS Command Line Interface \(CLI\)](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
 - [Alexa Skills Kit Command Line Interface \(ASK CLI\)](https://developer.amazon.com/docs/smapi/quick-start-alexa-skills-kit-command-line-interface.html)
-- [Node.JS version 8](https://nodejs.org/)
-- This sample code on [GitHub](https://github.com/alexa/alexa-cookbook/tree/master/feature-demos/skill-demo-proactive-events/).
+- [Node.JS version 8 or greater](https://nodejs.org/)
+- This sample code on [GitHub](https://github.com/steveandroulakis/skill-demo-proactive-events-v2).
 
 Your notification must follow one of the pre-defined formats listed in the [Proactive Events Schema](https://developer.amazon.com/docs/smapi/schemas-for-proactive-events.html)
 For example, here is a sample notification that uses the **OrderStatus** schema:
@@ -45,7 +45,7 @@ For example, here is a sample notification that uses the **OrderStatus** schema:
 Be sure you have the AWS CLI and ASK CLI setup.
 Download this repository to your laptop. You can do this in one of two ways:
 
-- Run the `git clone https://github.com/steveandroulakis/proactive-events-updated` command, or
+- Run the `git clone https://github.com/steveandroulakis/skill-demo-proactive-events-v2.git` command, or
 - Click the **Code** tab near the top of the page, and then click the green **Clone or download** button.
 
 #### AWS setup steps
@@ -58,7 +58,7 @@ First, prepare your AWS setup:
 
 Then edit your configuration to point to your AWS bucket, package your skill endpoint and upload it to S3.
 
-1. Open `pingme.yaml` and change the S3 bucket from `androula-host` to your bucket name e.g. `notifications-sample-bucket`
+1. Open `pingme.yaml` and change the S3 bucket from `androula-host-us-east-1` to your bucket name e.g. `notifications-sample-bucket`
 1. Open create-and-upload-skill-zip.sh and set PACKAGE_BUCKET to your bucket name.
 1. Navigate to this folder in terminal and run `chmod +x create-and-upload-skill-zip.sh` to make it executable
 1. Run `./create-and-upload-skill-zip.sh`
@@ -78,7 +78,7 @@ The stack also includes the AWS Lambda trigger, IAM role, and a DynamoDB table t
 - Executing this script launches a CloudFormation setup from the packaged project defined in pingme.yaml.
 
 1. Open the [CloudFormation console](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks) and verify the new stack called PingMe is created. It will take a few moments to complete.
-1. Click on this stack, and then click the **Outputs** tab. Copy the **AlexaSkillFunctionARN** value.
+1. Click on this stack, and then click the **Outputs** tab. Copy the **AlexaSkillFunctionARN** value. YOU WILL NEED THIS FOR LATER.
 
 #### Skill setup steps
 
@@ -96,7 +96,7 @@ Next, you will update the skill manifest with the **AlexaSkillFunctionARN** valu
 1. Click the **Build** tab, and click "Permissions" at the the bottom left.
 1. At the bottom of the **Permissions** page, locate and copy the two Skill Messaging Client credentials, **Client Id** and **Client Secret**.
 
-Note: After the deployment, make sure your skill endpoint is set to the one created by CloudFormation above by going to Build -> Endpoint.
+Note: After the deployment, make sure your skill endpoint is set to the one created by CloudFormation above by going to **Build -> Endpoint** in the skill developer portal.
 
 Enable the skill to receive notifications:
 
